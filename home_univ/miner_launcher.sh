@@ -95,9 +95,12 @@ screen -ls "fanmgmt" | (
 )
 
 	tt=`cat ~/setup_*/config_*txt | grep "tt=" | grep -o "..$"`
+	if ! [[ "$tt" ]]; then
+        tt=57
+        fi
 	screen -dmS fanmgmt ~/setup_nv/fanmgmt_nv.sh $tt
         screen -dmS fanmgmt ~/setup_rx/fanmgmt_rx.sh $tt
-	screen -dmS ethm ./start.sh
+	screen -dmS ethm -L -Logfile /dev/tty1 ./start.sh
 	printf "ETH miner started\n"
         fi
 
@@ -107,7 +110,7 @@ screen -ls "fanmgmt" | (
         printf "XMR miner started\n"
         elif [ "$algo" = "eth" ] && [ "$miner" = "clay" ]; then
         cd ~/clay
-        screen -dmS ethm ./start.sh
+        screen -dmS ethm -L -Logfile /dev/tty1 ./start.sh
         printf "ETH miner started\n"
         fi
 
