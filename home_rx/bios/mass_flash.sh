@@ -1,0 +1,10 @@
+sudo atiflash -p 0 $1
+sudo atiflash -p 1 $1
+sudo atiflash -p 2 $1
+sudo atiflash -p 3 $1
+sudo atiflash -p 4 $1
+sudo atiflash -p 5 $1
+sudo atiflash -p 6 $1
+sudo atiflash -p 7 $1
+sudo atiflash -p 8 $1
+sudo atiflash -p 9 $1

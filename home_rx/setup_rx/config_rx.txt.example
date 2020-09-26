@@ -1,0 +1,13 @@
+# Config AMD clocks and fan speeds
+
+cstate_uv=7 #DO NOT EDIT - undervolt core state - usually 7
+mstate_uv=2 #DO NOT EDIT - undervolt memory state - could differ
+
+core_uv=3 #core undervolt grade - less is better, but unstable
+mem_uv=3 #memory undervolt grade - less is better, but unstable
+
+mclock=1880
+
+tt=57
+
+--ref=15

@@ -1,0 +1,16 @@
+# Config NVIDIA clocks and fan speeds
+# File name should be -> config_nv.txt
+
+nstate=3 #this is the number of the clock state. Leave unchanged!
+
+pill=0
+gui_wait=5
+
+mclock=1100
+fan=80
+plimit=110
+
+mclock0=1050
+#plimit0=115
+
+tt=56
