@@ -99,7 +99,7 @@ screen -ls "fanmgmt" | (
         tt=57
         fi
 	screen -dmS fanmgmt ~/setup_nv/fanmgmt_nv.sh $tt
-        screen -dmS fanmgmt ~/setup_rx/fanmgmt_rx.sh $tt
+#        screen -dmS fanmgmt ~/setup_rx/fanmgmt_rx.sh $tt
 	screen -dmS ethm -L -Logfile /dev/tty1 ./start.sh
 	printf "ETH miner started\n"
         fi

@@ -17,6 +17,11 @@
 POOL: eu1.ethermine.org:4444, WAL: 0x008c26f3a2Ca8bdC11e5891e0278c9436B6F5d1E.RigName
 POOL: us1.ethermine.org:4444, WAL: 0x008c26f3a2Ca8bdC11e5891e0278c9436B6F5d1E.RigName
 
+# These are examples for ETC pools
+
+POOL: ssl://eu1-etc.ethermine.org:5555, WAL: 0x008c26f3a2Ca8bdC11e5891e0278c9436B6F5d1E.Rig001, COIN: etc
+POOL: etc-eu1.nanopool.org:19999, WAL: 0x008c26f3a2Ca8bdC11e5891e0278c9436B6F5d1E.Rig001, COIN: etc
+
 # The following line shows all possible pool options. The values for each option must follow the
 # same rules as these specified in the Readme.txt file for the -pool, -wal, -pass, -worker,
 # -proto, -coin, and -stales command-line options

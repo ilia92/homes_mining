@@ -1,3 +1,53 @@
+PhoenixMiner 5.3b
+-----------------
+  - Added support for the new ETCHash algorithm that will be used by the ETC blockchain from 
+    Nov 28, 2020. If you want to mine ETC, it is recommended to add '-coin etc' to your
+    command-line, or 'COIN: etc' to your epools.txt file. See the start_miner_etc.sh and
+    epools_example.txt files for examples
+
+PhoenixMiner 5.2e
+-----------------
+  - Fixed some problems with using 8GB AMD cards
+  - Fixed some problems with 4GB AMD cards when mining ETH or ETC
+  - Fixed crash when using the AMD beta blockchain drivers from 2017 (still not 
+    recommended to use these drivers)
+  - Added support for the latest AMD Windows 10 drivers 20.11.2
+
+PhoenixMiner 5.2d
+-----------------
+  - Added support for -daglim for AMD Fiji, Tonga, and Baffin cards with 4GB VRAM, so you
+    will be able to use them some time beyond epoch 373 (Windows), or 381 (Linux)
+  - New kernels for 4GB AMD cards with higher hashrate when -daglim is in effect
+  - Added -daglim and -rxboost support in Linux. The default -daglim value in Linux is
+    4064 for older drivers (before 19.50), and 4076 for the newer drivers
+  - Added support for the latest AMD Linux drivers 20.40-1147286 (however they seem to
+    have hardware control problems with some cards, so no need to upgrade for now)
+
+PhoenixMiner 5.2c
+-----------------
+  - The default DAG limit for 4GB AMD cards is increased to 4023 and is automatic by default -
+  you need to specify it manually only if the default is not right for your cards and driver
+  combination. This increases the speed substantially when DAG limit is in effect
+
+PhoenixMiner 5.2b
+-----------------
+  - Fixed some issues with allocation failures and crashes with some 8GB AMD cards
+  - The -dagrestart is set to 1 whenever -daglim is active for 4GB AMD cards
+
+PhoenixMiner 5.2a
+-----------------
+  - Added new -daglim parameter to allow a few more weeks of work for 4 GB AMD Polaris
+    cards. Use -daglim 1 for automatic operation, or specify a concrete value for the
+    maximum DAG size (example: -daglim 4000 will set max DAG size 4000 MB)
+  - Added -rxboost parameter (also accessible via -vmr) to boost the performance of GDDR5
+    based AMD cards (Polaris or earlier)
+  - Added memory straps support for AMD Vega cards. Use the -straps command-line option
+    to activate it (example: -straps 1 will activate the lowest strap level)
+  - AMD cards with more than 4 GB RAM will now work without issues until DAG epoch 450
+  - The Nvidia memory timing (straps) option is improved and now is turned off during
+    DAG generation to avoid any possible instability issues
+  - Many other small improvements and fixes
+
 PhoenixMiner 5.1c
 -----------------
   - Added more Pascal-based Nvidia cards to the list of supported Nvidia cards for memory timing (straps)
