@@ -4,9 +4,17 @@
 
 export DISPLAY=:0
 
+# Changing worker name
+worker=`hostname`
+sed -i "/worker/c\-worker $worker"  ~/pho/config.txt
+sed -i "/eworker/c\-eworker $worker"  ~/clay/config.txt
+
 if [[ $(ps aux | grep "SCREEN -dmS ethm" | wc -l) -gt 1 ]]; then
 # Stop each card
 printf "Stopping cards ...\n"
+# For TeamRedMiner
+screen -S ethm -X stuff "d" > /dev/null
+sleep 0.5
 
 screen -S ethm -X stuff "1" > /dev/null
 sleep 0.2
@@ -65,11 +73,13 @@ source ~/rig_wallet
 	if [ "$pool" ]; then
 	sed -i "/pool/c\-epool $pool"  ~/pho/config.txt
 	sed -i "/epool/c\-epool $pool"  ~/clay/config.txt
+        sed -i "/pool=/c\pool=$pool"  ~/trm/start.sh 2> /dev/null
 	fi
 
         if [ "$wallet" ]; then
         sed -i "/wal/c\-ewal $wallet"  ~/pho/config.txt
         sed -i "/ewal/c\-ewal $wallet"  ~/clay/config.txt
+        sed -i "/wallet=/c\wallet=$wallet"  ~/trm/start.sh 2> /dev/null
         fi
 
         if [ "$coin" ]; then
@@ -83,16 +93,16 @@ if [ -e ~/rig_algo-miner ]; then
 
 source ~/rig_algo-miner
 
-        if [ "$miner" = "pho" ]; then
-	cd ~/pho
+   if [ "$miner" = "pho" ]; then
+   cd ~/pho
 
-screen -ls "fanmgmt" | (
-  IFS=$(printf '\t');
-  sed "s/^$IFS//" |
-  while read -r name stuff; do
-      screen -S "$name" -X quit
-  done
-)
+	screen -ls "fanmgmt" | (
+	  IFS=$(printf '\t');
+	  sed "s/^$IFS//" |
+	  while read -r name stuff; do
+	      screen -S "$name" -X quit
+	  done
+	)
 
 	tt=`cat ~/setup_*/config_*txt | grep "tt=" | grep -o "..$"`
 	if ! [[ "$tt" ]]; then
@@ -101,18 +111,23 @@ screen -ls "fanmgmt" | (
 	screen -dmS fanmgmt ~/setup_nv/fanmgmt_nv.sh $tt
 #        screen -dmS fanmgmt ~/setup_rx/fanmgmt_rx.sh $tt
 	screen -dmS ethm -L -Logfile /dev/tty1 ./start.sh
-	printf "ETH miner started\n"
-        fi
+	printf "ETH miner started: Phoenix\n"
+   fi
 
-        if [ "$algo" = "xmr" ]; then
+   if [ "$miner" = "trm" ]; then
+	cd ~/trm
+        screen -dmS ethm -L -Logfile /dev/tty1 ./start.sh
+        printf "ETH miner started: TeamRedMiner\n"
+   fi
+
+   if [ "$algo" = "xmr" ]; then
         cd ~/clay_xmr
         screen -dmS xmrm ./start.sh
-        printf "XMR miner started\n"
-        elif [ "$algo" = "eth" ] && [ "$miner" = "clay" ]; then
+        printf "XMR miner started: Claymore\n"
+   elif [ "$miner" = "clay" ] && [ "$algo" = "eth" ]; then
         cd ~/clay
         screen -dmS ethm -L -Logfile /dev/tty1 ./start.sh
-        printf "ETH miner started\n"
-        fi
-
+        printf "ETH miner started: Claymore\n"
+   fi
 fi
 

@@ -26,5 +26,5 @@ export GPU_USE_SYNC_OBJECTS=1
 #
 # 4. You're good to go!
 
-./teamredminer -a ethash -o stratum+tcp://eu1.ethermine.org:4444 -u 0x02197021fefa795fec661a45f60e47a6f6605281.trmtest -p x --eth_alloc_epoch=382 --eth_4g_max_alloc=4078
+./teamredminer -a ethash -o stratum+tcp://eu1.ethermine.org:4444 -u 0x8ab161f35ec3326246b7d9f09613f3e433bfcae4.trmtest -p x --eth_4g_max_alloc=4070 --fan_control=59::: --api_listen=0.0.0.0:3333
 
