@@ -25,7 +25,7 @@ printf "\nRestarts exceeded! Check RIG!\n"
 exit
 fi
 
-raw_curl=`timeout $curl_timeout curl --silent localhost:3333 | html2text`
+raw_curl=`timeout $curl_timeout curl --silent localhost:3333 | html2text -width 300`
 zero_hashes=`echo -e "$raw_curl" | grep "GPUs.*0.000 MH/s" | tail -1`
 
 card_type=`timeout 10 lspci | grep controller`
