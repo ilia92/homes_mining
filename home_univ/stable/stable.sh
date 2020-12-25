@@ -2,87 +2,90 @@
 
 uptm=`uptime`
 uptm_chk=`printf "$uptm" | grep " 0 min\| 1 min \| 2min"`
+date=`date +"%Y-%m-%d %T"`
 
-if [ "$uptm_chk" ];
-then
-#printf "1st cron run, nothing done\n"
+if [ "$uptm_chk" ]; then
+printf "1st cron run, nothing done\n"
 exit 0;
 fi
 
 DIR="$( cd "$( dirname "${BASH_SOURCE[0]}" )" && pwd )"
 
-counter_file="$DIR/restart_counter.txt"
+source $DIR/stable.conf
 
-count=`cat $counter_file`
+count=`cat $counter_file 2> /dev/null`
 
-counter_trsh=5
-
-if [ $count -ge $counter_trsh ];
-then
-#printf "\nRestarts exceeded! Check RIG!\n"
+if [[ $count -ge $counter_trsh ]]; then
+printf "\nRestarts exceeded! Check RIG!\n"
 exit
 fi
 
-raw_curl=`timeout 15 curl --silent localhost:3333 | html2text -width 200`
-hashes=`echo -e "$raw_curl" | grep -T "$alg: G" | tail -10`
-
-host=`cat /etc/hostname`
+raw_curl=`timeout $curl_timeout curl --silent localhost:3333 | html2text`
+zero_hashes=`echo -e "$raw_curl" | grep "GPUs.*0.000 MH/s" | tail -1`
 
 card_type=`timeout 10 lspci | grep controller`
 
-if [ "$(printf "$card_type" | grep AMD)" ];
-then
-#printf "AMD Cards!"
-cards_info=`timeout 10 amdcovc`
-elif [ "$(printf "$card_type" | grep NVIDIA)" ]
-then
-#printf "NVIDIA Cards!"
-#cards_info=`timeout --kill-after=3 --signal=SIGKILL 3s nvidia-smi -L &`
-cards_info="\nNot availlable in this version \n"
+if [ "$(printf "$card_type" | grep AMD)" ]; then
+
+printf "AMD Cards!\n"
+cards_count=`ls -la /sys/class/drm/ | grep 'card[0-9][0-9] ->\|card[0-9] ->' | wc -l`
+mem_load_info="MEM_load:" && for i in $( seq 0 $((cards_count-1))) ; do mem_load_info=`printf "${mem_load_info}__$i:\`cat /sys/class/drm/card$i/device/mem_busy_percent 2> /dev/null\`"` ; done
+
+elif [ "$(printf "$card_type" | grep NVIDIA)" ]; then
+printf "NVIDIA Cards!"
+
 else
 printf "Unknown Cards type"
 fi
 
-# Send Mail function
-sendmail ()
-{
-mail=""
-subject="RIG - $host - SelfRESTART $count"
-from="Miner <miner@webimage.eu>"
-recipients="report@webimage.eu"
-mail="Subject:$subject\nFrom:$from\n$body_mail"
-
-echo -e "$mail" | /usr/sbin/sendmail $recipients
-}
-#END Send Mail function
-
 # Check if miner shows output
-if ! [ "$hashes" ];
-then
-#printf "\nIF case: EMPTY hashes stats! \n"
+if ! [ $res_criteria == "card_down" ] && ! [ $res_criteria == "full_down" ]; then
+printf "Unknown criteria, will not proceed further!\n"
 
+elif ! [ "$raw_curl" ] && ([ $res_criteria == "full_down" ] || [ $res_criteria == "card_down" ]) ; then
+
+printf "full_down: NO curl selfcheck result!\n"
 count=$(($count+1))
-
-#some code here
-
 echo $count > $counter_file
-
-if [ $count -eq 5 ];
-then
-ifinfo="Hello,\n\nThere are no stats!\n\nThis is my LAST restart. Check ME, need attention!!!\n\nRig last uptime: $uptm\nMail sent at: $(date +"%d-%m-%y %H:%M:%S")\n\nSome stats:\n$cards_info\n\nRegards,\nYour $host\n"
-body_mail="$ifinfo"
-sendmail
+printf "$date full_down:$count $mem_load_info\n" >> $log_file
 sleep 5
 echo b > /proc/sysrq-trigger
-exit
-fi
 
-ifinfo="Hello,\n\nThere are no stats!\n\nI will restart myself, try to go Up again....\n\nRig last uptime: $uptm\nMail sent at: $(date +"%d-%m-%y %H:%M:%S")\n\nSome stats:\n$cards_info\n\nRegards,\nYour $host\n"
+elif ([ "$zero_hashes" ] || ! [ "$raw_curl" ]) && [[ $res_criteria == "card_down" ]]; then
 
-body_mail="$ifinfo"
-#echo -e "$body_mail"
-sendmail
-sleep 5
-echo b > /proc/sysrq-trigger
+     printf "card_down: There is stopped card!\n"
+     count=$(($count+1))
+     echo $count > $counter_file
+     printf "$date card_down:$count $mem_load_info\n" >> $log_file
+     sudo su -c 'screen -S ethm -X stuff "1"' -s /bin/sh $user
+     sleep 1
+     sudo su -c 'screen -S ethm -X stuff "2"' -s /bin/sh $user
+     sleep 1
+     sudo su -c 'screen -S ethm -X stuff "3"' -s /bin/sh $user
+     sleep 1
+     sudo su -c 'screen -S ethm -X stuff "4"' -s /bin/sh $user
+     sleep 1
+     sudo su -c 'screen -S ethm -X stuff "5"' -s /bin/sh $user
+     sleep 1
+     sudo su -c 'screen -S ethm -X stuff "6"' -s /bin/sh $user
+     sleep 1
+     sudo su -c 'screen -S ethm -X stuff "7"' -s /bin/sh $user
+     sleep 1
+     sudo su -c 'screen -S ethm -X stuff "8"' -s /bin/sh $user
+     sleep 1
+     sudo su -c 'screen -S ethm -X stuff "9"' -s /bin/sh $user
+     sudo su -c 'screen -S ethm -X stuff "010"' -s /bin/sh $user
+     sleep 1
+     sudo su -c 'screen -S ethm -X stuff "011"' -s /bin/sh $user
+     sleep 1
+     sudo su -c 'screen -S ethm -X stuff "012"' -s /bin/sh $user
+     sleep 1
+     sudo su -c 'screen -S ethm -X stuff "013"' -s /bin/sh $user
+     sleep 1
+     sleep 10
+     echo b > /proc/sysrq-trigger
+
+else
+printf "All up and running!\n"
+
 fi
-#END Check if miner shows output

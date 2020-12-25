@@ -1,0 +1,4 @@
+#!/bin/bash
+
+cards_count=`ls -la /sys/class/drm/ | grep 'card[0-9][0-9] ->\|card[0-9] ->' | wc -l`
+for i in $( seq 0 $((cards_count-1))) ; do printf "card $i: "; cat /sys/class/drm/card$i/device/mem_busy_percent ; echo -n; done

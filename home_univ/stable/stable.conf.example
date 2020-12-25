@@ -1,0 +1,19 @@
+# Script Stable - used for selfchecking the mining machine
+
+# User, who is default logged for mining
+user=miner
+
+# File in which the counter will be tracked
+counter_file="$DIR/restart_counter.txt"
+
+# Stable log file
+log_file="$DIR/log_stable.txt"
+
+# Counter when the restart will give up
+counter_trsh=30
+
+# Curl timeout
+curl_timeout=15
+
+# res_criteria: only if: 'card_down|full_down'. Default: (empty) - means if miner is not running - will restart miner
+res_criteria="full_down"

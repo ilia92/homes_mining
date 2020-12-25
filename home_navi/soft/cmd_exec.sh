@@ -12,3 +12,5 @@ cp -rpv $DIR/rocminfo /usr/bin/
 
 cp -rpv $DIR/pbec /usr/bin/
 cp -rpv $DIR/amdmemtweak /usr/bin/
+
+cp -rpv $DIR/busy /usr/bin/

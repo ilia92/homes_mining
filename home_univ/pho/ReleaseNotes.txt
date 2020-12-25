@@ -1,3 +1,28 @@
+PhoenixMiner 5.4c
+-----------------
+  - Added support for DAG epoch up to 500
+  - Fixed crash (or GPUs not detected) when using the latest Windows Nvidia drivers 460.79
+    and 460.89
+  - Validated support for Nvidia RTX 3090, 3080, 3070, and 3060Ti GPUs. Those still use the
+    current kernels and there are no speed increases from the previous PhoenixMiner release
+  - Add support for AMD Linux driver 19.50-1011208-ubuntu-18.04 (used by some Linux mining
+    OSes and other software)
+  - Added new kernels to allow mining on AMD Hawaii cards (R9 390, etc.) with the current
+    and future DAG epochs (even with DAG buffer above 4GB for the 8GB cards)
+
+PhoenixMiner 5.4b
+-----------------
+  - New kernels for AMD Vega and Navi GPUs that are slightly faster when the DAG buffer is
+    approaching or passing 4GB in size (the current ETH DAG is close to 4GB). To use these
+    new kernels, you need to use drivers 20.5.1 or later under Win10,
+    or 20.10.x or later under Linux.
+  - Re-running auto-tune as needed when switching to a different DAG buffer type (e.g. when
+    switching from ETH to ETC, or back)
+  - Added support for the latest AMD Windows 10 drivers 20.12.1 and 20.11.3
+  - Fixed crash when trying to set -mvddc on very old AMD drivers (including the beta 
+    blockchain drivers from 2017)
+  - Other small fixes and improvements
+
 PhoenixMiner 5.3b
 -----------------
   - Added support for the new ETCHash algorithm that will be used by the ETC blockchain from 
