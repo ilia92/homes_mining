@@ -1,7 +1,7 @@
 #!/bin/bash
 
 uptm=`uptime`
-uptm_chk=`printf "$uptm" | grep " 0 min\| 1 min \| 2min"`
+uptm_chk=`printf "$uptm" | grep "0 min\|1 min\|2 min"`
 date=`date +"%Y-%m-%d %T"`
 
 if [ "$uptm_chk" ]; then
@@ -53,8 +53,7 @@ printf "full_down: NO curl selfcheck result!\n"
 count=$(($count+1))
 echo $count > $DIR/$counter_file
 printf "$date full_down:$count $mem_load_info\n" >> $DIR/$log_file
-sleep 5
-wait
+sleep 30
 echo b > /proc/sysrq-trigger
 
 elif ([ "$zero_hashes" ] || ! [ "$raw_curl" ]) && [[ $res_criteria == "card_down" ]]; then
@@ -87,9 +86,7 @@ elif ([ "$zero_hashes" ] || ! [ "$raw_curl" ]) && [[ $res_criteria == "card_down
      sudo su -c 'screen -S ethm -X stuff "012"' -s /bin/sh $user
      sleep 1
      sudo su -c 'screen -S ethm -X stuff "013"' -s /bin/sh $user
-     sleep 1
-     sleep 5
-     wait
+     sleep 30
      echo b > /proc/sysrq-trigger
 
 else
