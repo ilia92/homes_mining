@@ -4,10 +4,10 @@
 user=miner
 
 # File in which the counter will be tracked
-counter_file="$DIR/restart_counter.txt"
+counter_file="restart_counter.txt"
 
 # Stable log file
-log_file="$DIR/log_stable.txt"
+log_file="log_stable.txt"
 
 # Counter when the restart will give up
 counter_trsh=3

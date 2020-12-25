@@ -18,7 +18,7 @@ printf "Missing config file, exiting"
 exit 1;
 fi
 
-count=`cat $counter_file 2> /dev/null`
+count=`cat $DIR/$counter_file 2> /dev/null`
 
 if [[ $count -ge $counter_trsh ]]; then
 printf "\nRestarts exceeded! Check RIG!\n"
@@ -51,17 +51,18 @@ elif ! [ "$raw_curl" ] && ([ $res_criteria == "full_down" ] || [ $res_criteria =
 
 printf "full_down: NO curl selfcheck result!\n"
 count=$(($count+1))
-echo $count > $counter_file
-printf "$date full_down:$count $mem_load_info\n" >> $log_file
+echo $count > $DIR/$counter_file
+printf "$date full_down:$count $mem_load_info\n" >> $DIR/$log_file
 sleep 5
+wait
 echo b > /proc/sysrq-trigger
 
 elif ([ "$zero_hashes" ] || ! [ "$raw_curl" ]) && [[ $res_criteria == "card_down" ]]; then
 
      printf "card_down: There is stopped card!\n"
      count=$(($count+1))
-     echo $count > $counter_file
-     printf "$date card_down:$count $mem_load_info\n" >> $log_file
+     echo $count > $DIR/$counter_file
+     printf "$date card_down:$count $mem_load_info\n" >> $DIR/$log_file
      sudo su -c 'screen -S ethm -X stuff "1"' -s /bin/sh $user
      sleep 1
      sudo su -c 'screen -S ethm -X stuff "2"' -s /bin/sh $user
@@ -87,7 +88,8 @@ elif ([ "$zero_hashes" ] || ! [ "$raw_curl" ]) && [[ $res_criteria == "card_down
      sleep 1
      sudo su -c 'screen -S ethm -X stuff "013"' -s /bin/sh $user
      sleep 1
-     sleep 10
+     sleep 5
+     wait
      echo b > /proc/sysrq-trigger
 
 else
