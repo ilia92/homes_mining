@@ -10,10 +10,10 @@ counter_file="$DIR/restart_counter.txt"
 log_file="$DIR/log_stable.txt"
 
 # Counter when the restart will give up
-counter_trsh=30
+counter_trsh=3
 
 # Curl timeout
 curl_timeout=15
 
-# res_criteria: only if: 'card_down|full_down'. Default: (empty) - means if miner is not running - will restart miner
-res_criteria="full_down"
+# res_criteria: only if: 'card_down|full_down|disable'. Default: disable
+res_criteria="disable"

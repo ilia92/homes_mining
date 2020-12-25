@@ -11,7 +11,12 @@ fi
 
 DIR="$( cd "$( dirname "${BASH_SOURCE[0]}" )" && pwd )"
 
+if [ -e $DIR/stable.conf ]; then
 source $DIR/stable.conf
+else
+printf "Missing config file, exiting"
+exit 1;
+fi
 
 count=`cat $counter_file 2> /dev/null`
 
