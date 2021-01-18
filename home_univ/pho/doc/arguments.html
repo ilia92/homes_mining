@@ -8,7 +8,7 @@
   
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   
-  <title>Command-line arguments &mdash; PhoenixMiner 5.4c documentation</title>
+  <title>Command-line arguments &mdash; PhoenixMiner 5.5b documentation</title>
   
 
   
@@ -171,8 +171,8 @@
             
   <div class="section" id="command-line-arguments">
 <h1>Command-line arguments<a class="headerlink" href="#command-line-arguments" title="Permalink to this headline">¶</a></h1>
-<p>Note that PhoenixMiner supports most of the command-line options of Claymore’s dual Ethereum miner
-so you can use the same command line options as the ones you would have used with Claymore’s miner.</p>
+<p>Note that PhoenixMiner supports most of the command-line options of Claymore's dual Ethereum miner
+so you can use the same command line options as the ones you would have used with Claymore's miner.</p>
 <div class="section" id="pool-options">
 <h2>Pool options<a class="headerlink" href="#pool-options" title="Permalink to this headline">¶</a></h2>
 <dl class="simple">
@@ -180,7 +180,7 @@ so you can use the same command line options as the ones you would have used wit
 </dd>
 <dt>-wal &lt;wallet&gt;</dt><dd><p>Ethash wallet (some pools require appending of user name and/or worker).</p>
 </dd>
-<dt>-pass &lt;password&gt;</dt><dd><p>Ethash password (most pools don’t require it, use <code class="docutils literal notranslate"><span class="pre">x</span></code> as password if unsure)</p>
+<dt>-pass &lt;password&gt;</dt><dd><p>Ethash password (most pools don't require it, use <code class="docutils literal notranslate"><span class="pre">x</span></code> as password if unsure)</p>
 </dd>
 <dt>-worker &lt;name&gt;</dt><dd><p>Ethash worker name (most pools accept it as part of wallet)</p>
 </dd>
@@ -302,7 +302,7 @@ so you can use the same command line options as the ones you would have used wit
 </dd>
 <dt>-dwal &lt;wallet&gt;</dt><dd><p>Dual mining wallet</p>
 </dd>
-<dt>-dpass &lt;password&gt;</dt><dd><p>Dual mining pool password (most pools don’t require it, use <code class="docutils literal notranslate"><span class="pre">x</span></code> as password if unsure)</p>
+<dt>-dpass &lt;password&gt;</dt><dd><p>Dual mining pool password (most pools don't require it, use <code class="docutils literal notranslate"><span class="pre">x</span></code> as password if unsure)</p>
 </dd>
 <dt>-dworker &lt;name&gt;</dt><dd><p>Dual mining worker name</p>
 </dd>
@@ -374,13 +374,13 @@ so you can use the same command line options as the ones you would have used wit
 </dd>
 <dt>-mi &lt;n&gt;</dt><dd><p>Set the mining intensity (0 to 14; 12 is the default for new kernels). You may specify this option per-GPU.</p>
 </dd>
-<dt>-gt &lt;n&gt;</dt><dd><p>Set the GPU tuning parameter (6 to 400). The default is 15. You can change the tuning parameter interactively with the <code class="docutils literal notranslate"><span class="pre">+</span></code> and <code class="docutils literal notranslate"><span class="pre">-</span></code> keys in the miner’s console window. You may specify this option per-GPU. If you don’t specify <code class="docutils literal notranslate"><span class="pre">-gt</span></code> or you specify value 0, the miner will use auto-tuning to determine the best GT value. Note that when the GPU is dual-mining, it ignores the <code class="docutils literal notranslate"><span class="pre">-gt</span></code> values, and uses <code class="docutils literal notranslate"><span class="pre">-sci</span></code> instead.</p>
+<dt>-gt &lt;n&gt;</dt><dd><p>Set the GPU tuning parameter (6 to 400). The default is 15. You can change the tuning parameter interactively with the <code class="docutils literal notranslate"><span class="pre">+</span></code> and <code class="docutils literal notranslate"><span class="pre">-</span></code> keys in the miner's console window. You may specify this option per-GPU. If you don't specify <code class="docutils literal notranslate"><span class="pre">-gt</span></code> or you specify value 0, the miner will use auto-tuning to determine the best GT value. Note that when the GPU is dual-mining, it ignores the <code class="docutils literal notranslate"><span class="pre">-gt</span></code> values, and uses <code class="docutils literal notranslate"><span class="pre">-sci</span></code> instead.</p>
 </dd>
-<dt>-sci &lt;n&gt;</dt><dd><p>Set the dual mining intensity (1 to 1000). The default is 30. As you increase the value of <code class="docutils literal notranslate"><span class="pre">-sci</span></code>, the secondary coin hashrate will increase but the price will be higher power consumption and/or lower ethash hashrate. You can change the this parameter interactively with the <code class="docutils literal notranslate"><span class="pre">+</span></code> and <code class="docutils literal notranslate"><span class="pre">-</span></code> keys in the miner’s console window. You may specify this option per-GPU. If you set <code class="docutils literal notranslate"><span class="pre">-sci</span></code> to 0, the miner will use auto-tuning to determine the best value, while trying to maximize the ethash hashrate regardless of the secondary coin hashrate.</p>
+<dt>-sci &lt;n&gt;</dt><dd><p>Set the dual mining intensity (1 to 1000). The default is 30. As you increase the value of <code class="docutils literal notranslate"><span class="pre">-sci</span></code>, the secondary coin hashrate will increase but the price will be higher power consumption and/or lower ethash hashrate. You can change the this parameter interactively with the <code class="docutils literal notranslate"><span class="pre">+</span></code> and <code class="docutils literal notranslate"><span class="pre">-</span></code> keys in the miner's console window. You may specify this option per-GPU. If you set <code class="docutils literal notranslate"><span class="pre">-sci</span></code> to 0, the miner will use auto-tuning to determine the best value, while trying to maximize the ethash hashrate regardless of the secondary coin hashrate.</p>
 </dd>
 <dt>-clKernel &lt;n&gt;</dt><dd><p>Type of OpenCL kernel: 0 - generic, 1 - optimized, 2 - alternative, 3 - turbo (1 is the default) You may specify this option per-GPU.</p>
 </dd>
-<dt>-clgreen &lt;n&gt;</dt><dd><p>Use the power-efficient (“green”) kernels (0: no, 1: yes; default: 0). You may specify this option per-GPU. Note that you have to run auto-tune again as the optimal GT values are completely different for the green kernels</p>
+<dt>-clgreen &lt;n&gt;</dt><dd><p>Use the power-efficient (&quot;green&quot;) kernels (0: no, 1: yes; default: 0). You may specify this option per-GPU. Note that you have to run auto-tune again as the optimal GT values are completely different for the green kernels</p>
 </dd>
 <dt>-clNew &lt;n&gt;</dt><dd><p>Use new AMD kernels if supported (0: no, 1: yes; default: 1). You may specify this option per-GPU.</p>
 </dd>
@@ -413,7 +413,7 @@ so you can use the same command line options as the ones you would have used wit
 </dd>
 <dt>-gpureset &lt;n&gt;</dt><dd><p>Fully reset GPU when paused (0 - no, 1 - yes; default: no, except on 1080Ti). You may specify this option per-GPU.</p>
 </dd>
-<dt>-rvram &lt;n&gt;</dt><dd><p>Minimum free VRAM in MB (-1: don’t check; default: 384 for Windows, and 128 for Linux)</p>
+<dt>-rvram &lt;n&gt;</dt><dd><p>Minimum free VRAM in MB (-1: don't check; default: 384 for Windows, and 128 for Linux)</p>
 </dd>
 <dt>-altinit</dt><dd><p>Use alternative way to initialize AMD cards to prevent startup crashes</p>
 </dd>
@@ -428,7 +428,7 @@ so you can use the same command line options as the ones you would have used wit
 </dd>
 <dt>-log &lt;n&gt;</dt><dd><p>Selects the log file mode:
 :0: disabled - no log file will be written
-:1: write log file but don’t show debug messages on screen (default)
+:1: write log file but don't show debug messages on screen (default)
 :2: write log file and show debug messages on screen</p>
 </dd>
 <dt>-logfile &lt;name&gt;</dt><dd><p>Set the name of the logfile. If you place an asterisk (*) in the logfile name, it will be replaced by the current date/time to create a unique name every time PhoenixMiner is started. If there is no asterisk in the logfile name, the new log entries will be added to end of the same file. If you want to use the same logfile but the contents to be overwritten every time when you start the miner, put a dollar sign ($) character in the logfile name (e.g. <code class="docutils literal notranslate"><span class="pre">-logfile</span> <span class="pre">my_log.txt$</span></code>).</p>
@@ -449,7 +449,7 @@ so you can use the same command line options as the ones you would have used wit
 </dd>
 <dt>-gswin &lt;n&gt;</dt><dd><p>GPU stats time window (5-30 sec; default: 15; use 0 to revert to pre-2.8 way of showing momentary stats)</p>
 </dd>
-<dt>-gsi &lt;n&gt;</dt><dd><p>Speed stats interval (5-30 sec; default: 5; use 0 to disable). The detailed stats are still shown every 45 seconds and aren’t affected by the <code class="docutils literal notranslate"><span class="pre">-gsi</span></code> value</p>
+<dt>-gsi &lt;n&gt;</dt><dd><p>Speed stats interval (5-30 sec; default: 5; use 0 to disable). The detailed stats are still shown every 45 seconds and aren't affected by the <code class="docutils literal notranslate"><span class="pre">-gsi</span></code> value</p>
 </dd>
 <dt>-astats &lt;n&gt;</dt><dd><p>Show advanced stats from Web sources (0: no; 1: yes). By default the coin exchange rates are updated every 4 hours, and the coin difficulty is updated every 8 hours. You can increase these periods by specifying for example <code class="docutils literal notranslate"><span class="pre">-astats</span> <span class="pre">12</span></code>, which will increase update periods to 12 and 24 hours respectively</p>
 </dd>
@@ -486,7 +486,7 @@ so you can use the same command line options as the ones you would have used wit
 </dd>
 <dt>-fpwm &lt;n&gt;</dt><dd><p>(<em>Linux only</em>) Fan PWM mode (0 - auto, 1 - direct, 2 - Polaris, 3 - Vega, 4 - Radeon VII, Navi; default: 0)</p>
 </dd>
-<dt>-tmax &lt;n&gt;</dt><dd><p>Set fan control max temperature (0 for default)</p>
+<dt>-tmax &lt;n&gt;</dt><dd><p>Set fan control max temperature (0 for default). If this feature is not supported by the driver, <code class="docutils literal notranslate"><span class="pre">-ttli</span></code> is set to the same temperature instead</p>
 </dd>
 <dt>-powlim &lt;n&gt;</dt><dd><p>Set GPU power limit in % (from -75 to 75, 0 for default)</p>
 </dd>
@@ -522,7 +522,7 @@ have no effect on AMD cards</p>
 </dd>
 <dt>-vmr &lt;n&gt;</dt><dd><p>Memory refresh rate (0 to 100, default 0). For AMD cards you may also use <code class="docutils literal notranslate"><span class="pre">-rxboost</span></code></p>
 </dd>
-<dt>-nvmem &lt;n&gt;</dt><dd><p>Force using straps on unsupported Nvidia GPUs (0 - do not force, 1 - GDDR5, 2 - GDDR5X). Make sure that the parameter matches your GPU memory type. You can try this if your card is Pascal-based but when you try to use <code class="docutils literal notranslate"><span class="pre">-straps</span></code> or any other memory timing option, the card is shown as “unsupported”.</p>
+<dt>-nvmem &lt;n&gt;</dt><dd><p>Force using straps on unsupported Nvidia GPUs (0 - do not force, 1 - GDDR5, 2 - GDDR5X). Make sure that the parameter matches your GPU memory type. You can try this if your card is Pascal-based but when you try to use <code class="docutils literal notranslate"><span class="pre">-straps</span></code> or any other memory timing option, the card is shown as &quot;unsupported&quot;.</p>
 </dd>
 <dt>-rxboost &lt;n&gt;</dt><dd><p>Memory refresh rate on AMD cards (0 - default values, 1 - predefined value that should work on most cards, 2 to 100 - increasingly aggressive settings). If you want to fine tune the value, you may run
 the miner with <code class="docutils literal notranslate"><span class="pre">-rxboost</span> <span class="pre">1</span></code>, write down the corresponding <code class="docutils literal notranslate"><span class="pre">-vmr</span></code> values that are showed in the log file, and then use <code class="docutils literal notranslate"><span class="pre">-vmr</span></code> instead with adjusted values.</p>
@@ -534,11 +534,11 @@ the miner with <code class="docutils literal notranslate"><span class="pre">-rxb
 <dl class="simple">
 <dt>-list</dt><dd><p>List the detected GPUs devices and exit</p>
 </dd>
-<dt>-v,–version</dt><dd><p>Show the version and exit</p>
+<dt>-v,--version</dt><dd><p>Show the version and exit</p>
 </dd>
 <dt>-vs</dt><dd><p>Show short version string (e.g. <code class="docutils literal notranslate"><span class="pre">4.1c</span></code>) and exit</p>
 </dd>
-<dt>-h,–help</dt><dd><p>Show information about the command-line options and exit</p>
+<dt>-h,--help</dt><dd><p>Show information about the command-line options and exit</p>
 </dd>
 </dl>
 </div>
@@ -561,8 +561,8 @@ to 1100 MHz for all cards, except the cards 1 to 3, on which it is set to 1090 M
 <li><p>label <code class="docutils literal notranslate"><span class="pre">amd</span></code> or <code class="docutils literal notranslate"><span class="pre">nvidia</span></code>: e.g. <code class="docutils literal notranslate"><span class="pre">amd:1090</span></code> sets the value to 1090 for all AMD cards</p></li>
 <li><p>arbitrary string that starts with letter and can contain letters, numbers and asterisks,
 which is matched with the GPU name as listed by PhoenixMiner. Example: <code class="docutils literal notranslate"><span class="pre">gtx*1070:+500</span></code> will
-set value +500 for all cards which contain ‘gtx’ and ‘1070’ in their names with anything
-between them. This will match ‘Nvidia GeForce GTX 1070’ but not ‘Nvidia GeForce 1070’.</p></li>
+set value +500 for all cards which contain 'gtx' and '1070' in their names with anything
+between them. This will match 'Nvidia GeForce GTX 1070' but not 'Nvidia GeForce 1070'.</p></li>
 </ul>
 <p>Note that if more than one selector matches given card, than only the last one counts.
 Example: <code class="docutils literal notranslate"><span class="pre">-cclock</span> <span class="pre">*:1100,1-4:1090,2:1300</span></code> will set card 2 to 1300; cards 1,3, and 4 to 1090;
@@ -590,7 +590,7 @@ and the rest of the cards to 1100 MHz core clock.</p>
 
   <div role="contentinfo">
     <p>
-        &copy; Copyright 2017-2020, Phoenix
+        &copy; Copyright 2017-2021, Phoenix
 
     </p>
   </div>
