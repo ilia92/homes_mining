@@ -63,11 +63,11 @@ done
 # GUI reconfig and restart
 nvidia-xconfig -a --cool-bits=28 --allow-empty-initial-configuration
 
-/etc/init.d/lightdm restart
+/etc/init.d/gdm3 restart
 
 sleep $gui_wait
 
-graph_status=`/etc/init.d/lightdm status | grep "active (running)"`
+graph_status=`/etc/init.d/gdm3 status | grep "active (running)"`
 
 printf "\n"
 
