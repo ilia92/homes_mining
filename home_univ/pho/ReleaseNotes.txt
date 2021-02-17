@@ -1,3 +1,22 @@
+PhoenixMiner 5.5c
+-----------------
+  - Added new -mcdag parameter to reset the memory overclock on Nvidia cards during
+    DAG generation. This may allow you to set higher memory overclock on your Nvidia cards
+    without risking corrupt DAG buffer, which can lead to excessive number of incorrect
+    shares. Use -mcdag 1 (by default the value is 0, which means turned off) to use this
+    new feature.
+    Under Linux this option will execute the `daggen.sh` script (if present in the
+    current directory) for each GPU, passing the GPU index as the first argument,
+    and PCIE bus ID as second argument. The miner will then wait for about 7 seconds
+    before starting DAG generation to allow the script enough time to reset the memory
+    overclock.
+  - The -tt parameter is now strictly for controlling the fan behavior. E.g. -tt 60 sets
+    auto-fan speed with target temperature 60C; -tt -70 sets fixed fan speed 70%; and
+    -tt 0 turns off the fan control. All these can be specified per GPU.
+  - There is a new -hwm parameter that allows controlling the frequency of the hardware
+    monitoring, which was also done by -tt in the previous versions of PhoenixMiner.
+  - Other small improvements and fixes
+
 PhoenixMiner 5.5b
 -----------------
   - Added native kernels for AMD RX6800 and RX6900 GPUs. These are faster than

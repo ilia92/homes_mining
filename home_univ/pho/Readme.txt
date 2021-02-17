@@ -1,4 +1,4 @@
--[ PhoenixMiner 5.5b documentation ]-
+-[ PhoenixMiner 5.5c documentation ]-
 
 * Introduction
 
@@ -83,7 +83,7 @@ Quick start
 Download and install
 ====================
 
-You can download PhoenixMiner 5.5b from here:
+You can download PhoenixMiner 5.5c from here:
 
 https://mega.nz/#F!2VskDJrI!lsQsz1CdDe8x5cH3L8QaBw (MEGA)
 
@@ -93,7 +93,7 @@ you want to mine BCI with Nvdia cards under Windows.
 If you want to check the integrity of the downloaded file, you can use
 the hashes (checksums) that are provided in our bitcointalk.org thread
 (https://bitcointalk.org/index.php?topic=2647654.0) or the file
-"PhoenixMiner_5.5b_checksums.txt" which is in the same MEGA folder as
+"PhoenixMiner_5.5c_checksums.txt" which is in the same MEGA folder as
 the main PhoenixMiner archive.
 
 Note: **Linux:** Under Linux you need to replace "PhoenixMiner.exe"
@@ -275,8 +275,8 @@ Command-line arguments
 **********************
 
 Note that PhoenixMiner supports most of the command-line options of
-Claymore's dual Ethereum miner so you can use the same command line
-options as the ones you would have used with Claymore's miner.
+Claymore’s dual Ethereum miner so you can use the same command line
+options as the ones you would have used with Claymore’s miner.
 
 
 Pool options
@@ -291,7 +291,7 @@ Pool options
    worker).
 
 -pass <password>
-   Ethash password (most pools don't require it, use "x" as password
+   Ethash password (most pools don’t require it, use "x" as password
    if unsure)
 
 -worker <name>
@@ -431,7 +431,7 @@ Pool options
    Dual mining wallet
 
 -dpass <password>
-   Dual mining pool password (most pools don't require it, use "x" as
+   Dual mining pool password (most pools don’t require it, use "x" as
    password if unsure)
 
 -dworker <name>
@@ -543,8 +543,8 @@ Mining options
 -gt <n>
    Set the GPU tuning parameter (6 to 400). The default is 15. You can
    change the tuning parameter interactively with the "+" and "-" keys
-   in the miner's console window. You may specify this option per-GPU.
-   If you don't specify "-gt" or you specify value 0, the miner will
+   in the miner’s console window. You may specify this option per-GPU.
+   If you don’t specify "-gt" or you specify value 0, the miner will
    use auto-tuning to determine the best GT value. Note that when the
    GPU is dual-mining, it ignores the "-gt" values, and uses "-sci"
    instead.
@@ -554,7 +554,7 @@ Mining options
    you increase the value of "-sci", the secondary coin hashrate will
    increase but the price will be higher power consumption and/or
    lower ethash hashrate. You can change the this parameter
-   interactively with the "+" and "-" keys in the miner's console
+   interactively with the "+" and "-" keys in the miner’s console
    window. You may specify this option per-GPU. If you set "-sci" to
    0, the miner will use auto-tuning to determine the best value,
    while trying to maximize the ethash hashrate regardless of the
@@ -565,7 +565,7 @@ Mining options
    3 - turbo (1 is the default) You may specify this option per-GPU.
 
 -clgreen <n>
-   Use the power-efficient ("green") kernels (0: no, 1: yes; default:
+   Use the power-efficient (“green”) kernels (0: no, 1: yes; default:
    0). You may specify this option per-GPU. Note that you have to run
    auto-tune again as the optimal GT values are completely different
    for the green kernels
@@ -649,7 +649,7 @@ Mining options
    on 1080Ti). You may specify this option per-GPU.
 
 -rvram <n>
-   Minimum free VRAM in MB (-1: don't check; default: 384 for Windows,
+   Minimum free VRAM in MB (-1: don’t check; default: 384 for Windows,
    and 128 for Linux)
 
 -altinit
@@ -675,7 +675,7 @@ Mining options
 
 -log <n>
    Selects the log file mode: :0: disabled - no log file will be
-   written :1: write log file but don't show debug messages on screen
+   written :1: write log file but don’t show debug messages on screen
    (default) :2: write log file and show debug messages on screen
 
 -logfile <name>
@@ -731,7 +731,7 @@ Mining options
 
 -gsi <n>
    Speed stats interval (5-30 sec; default: 5; use 0 to disable). The
-   detailed stats are still shown every 45 seconds and aren't affected
+   detailed stats are still shown every 45 seconds and aren’t affected
    by the "-gsi" value
 
 -astats <n>
@@ -760,10 +760,14 @@ Mining options
 Hardware control options (you may specify these options per-GPU)
 ================================================================
 
+-hwm <n>
+   Frequency of hardware monitoring (one setting for all cards, the
+   default is 1): 0 - no HW monitoring or control, 1 - normal
+   monitoring, 2 to 5 - less frequent monitoring.
+
 -tt <n>
-   Set fan control target temperature (special values: 0 - no HW
-   monitoring on ALL cards, 1-4 - only monitoring on all cards with
-   30-120 seconds interval, negative - fixed fan speed at n %)
+   Set fan control target temperature (special values: 0 - no fan
+   control, negative - fixed fan speed at n %)
 
 -hstats <n>
    Level of hardware monitoring: 0 - temperature and fan speed only; 1
@@ -889,15 +893,31 @@ Hardware control options (you may specify these options per-GPU)
    - GDDR5, 2 - GDDR5X). Make sure that the parameter matches your GPU
    memory type. You can try this if your card is Pascal-based but when
    you try to use "-straps" or any other memory timing option, the
-   card is shown as "unsupported".
+   card is shown as “unsupported”.
 
 -rxboost <n>
-   Memory refresh rate on AMD cards (0 - default values, 1 -
-   predefined value that should work on most cards, 2 to 100 -
-   increasingly aggressive settings). If you want to fine tune the
-   value, you may run the miner with "-rxboost 1", write down the
-   corresponding "-vmr" values that are showed in the log file, and
-   then use "-vmr" instead with adjusted values.
+   Memory refresh rate on AMD cards (0 - default value, 1 - predefined
+   value that should work on most cards, 2 to 100 - increasingly
+   aggressive settings). If you want to fine tune the value, you may
+   run the miner with "-rxboost 1", write down the corresponding
+   "-vmr" values that are showed in the log file, and then use "-vmr"
+   instead with adjusted values.
+
+-vmdag <n>
+   Reset straps to default during DAG generation (default: 1)
+
+-mcdag <n>
+   Reset GPU memory clock to default during DAG generation. Nvidia
+   only, default: 0 (turned off). This may allow you to set higher
+   memory overclock on your Nvidia cards without risking corrupt DAG
+   buffer, which can lead to excessive number of stale shares.
+
+   Under Linux this option will execute the "daggen.sh" script (if
+   present in the current directory) for each GPU, passing the GPU
+   index as the first argument, and PCIE bus ID as second argument.
+   The miner will then wait for about 7 seconds before starting DAG
+   generation to allow the script enough time to reset the memory
+   overclock.
 
 
 General Options
@@ -906,13 +926,13 @@ General Options
 -list
    List the detected GPUs devices and exit
 
--v,--version
+-v,–version
    Show the version and exit
 
 -vs
    Show short version string (e.g. "4.1c") and exit
 
--h,--help
+-h,–help
    Show information about the command-line options and exit
 
 
@@ -950,9 +970,9 @@ for which the value after the colon is applied. The selector can be:
 * arbitrary string that starts with letter and can contain letters,
   numbers and asterisks, which is matched with the GPU name as listed
   by PhoenixMiner. Example: "gtx*1070:+500" will set value +500 for
-  all cards which contain 'gtx' and '1070' in their names with
-  anything between them. This will match 'Nvidia GeForce GTX 1070' but
-  not 'Nvidia GeForce 1070'.
+  all cards which contain ‘gtx’ and ‘1070’ in their names with
+  anything between them. This will match ‘Nvidia GeForce GTX 1070’ but
+  not ‘Nvidia GeForce 1070’.
 
 Note that if more than one selector matches given card, than only the
 last one counts. Example: "-cclock *:1100,1-4:1090,2:1300" will set

@@ -19,6 +19,7 @@
 
 -tstop 65
 
+-mcdag 1
 -tt 56
 -fanmin 20
 -fanmax 80
