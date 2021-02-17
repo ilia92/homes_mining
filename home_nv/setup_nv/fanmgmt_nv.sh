@@ -17,7 +17,7 @@ temp_hyst=2
 elif [ "$1" ]; then
 
 target_temp=$1
-refresh_time=30
+refresh_time=60
 temp_hyst=2
 
 else

@@ -1,0 +1,12 @@
+# Config NVIDIA clocks and fan speeds
+
+nstate=4 #this is the number of the clock state. Leave unchanged!
+cstate=4
+
+mclock=2600
+cclock=-600
+plimit=130
+
+plimit1=135
+
+tt=54

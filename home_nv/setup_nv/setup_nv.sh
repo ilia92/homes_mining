@@ -30,7 +30,7 @@ tt=`printf "$conf_file_filtered" | grep "tt=" | sed "s/tt=//g"`
 gui_wait=`printf "$conf_file_filtered" | grep "gui_wait=" | sed "s/gui_wait=//g"`
 
 if ! [ "$gui_wait" ]; then
-	gui_wait=20
+	gui_wait=40
 fi
 
 # Run the pill
@@ -58,6 +58,11 @@ for i in `seq 0 $cards_count`; #Do NOT edit end number - this should be!
                 nvidia-smi -i $i -pl $def_plimit
         fi
 done
+
+if [ "$1" = "--start-miner" ]  && [ "$pill" != "1" ]; then
+sleep 5
+su -c "/home/$user/miner_launcher.sh" -s /bin/sh $user
+fi
 
 
 # GUI reconfig and restart
@@ -88,7 +93,7 @@ for i in `seq 0 $cards_count`; #Do NOT edit end number - this should be!
 
         if [[ "$fan" ]]; then
 		su -c "$DIR/fanctrl_nv.sh $fan $i" -s /bin/sh $user
-        else
+        elif [[ "$def_fan" ]]; then
                 su -c "$DIR/fanctrl_nv.sh $def_fan $i " -s /bin/sh $user
         fi
 
@@ -136,10 +141,5 @@ done
 # END Core clock set
 
 # Fan management
-su -c "screen -dmS fanmgmt $DIR/fanmgmt_nv.sh $tt" -s /bin/sh $user
+#su -c "screen -dmS fanmgmt $DIR/fanmgmt_nv.sh $tt" -s /bin/sh $user
 # END fan management
-
-if [ "$1" = "--start-miner" ]  && [ "$pill" != "1" ]; then
-sleep 5
-su -c "/home/$user/miner_launcher.sh" -s /bin/sh $user
-fi

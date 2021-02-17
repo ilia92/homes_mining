@@ -10,7 +10,7 @@ card_num=$2
 if [ "$3" ]; then
 nstate=$3
 else
-nstate=3
+nstate=4
 fi
 
 if [ "$2" ]; then
@@ -24,7 +24,7 @@ cards_count=`nvidia-smi -L | wc -l`
 
 for i in `seq 0 $(($cards_count-1))`;
         do
-	nvidia-settings -a [gpu:$card_num]/GPUMemoryTransferRateOffset[$nstate]=$mclock
+	nvidia-settings -a [gpu:$i]/GPUMemoryTransferRateOffset[$nstate]=$mclock
 done
 
 else

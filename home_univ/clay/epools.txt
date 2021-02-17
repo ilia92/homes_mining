@@ -1,5 +1,0 @@
-# WARNING! Remove "#" characters to enable lines, with "#" they are disabled and will be ignored by miner! Check README for details.
-
-POOL: ssl://eu1.ethermine.org:5555
-POOL: eth-eu.dwarfpool.com:8008
-
