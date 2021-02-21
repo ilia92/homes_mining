@@ -72,22 +72,24 @@ if [ -e $DIR/rig_wallet ]; then
 
 source $DIR/rig_wallet
 
-	if [ "$pool" ]; then
-	sed -i "/pool/c\-epool $pool"  $DIR/pho/config.txt
-	sed -i "/epool/c\-epool $pool"  $DIR/clay/config.txt
-        sed -i "/pool=/c\pool=$pool"  $DIR/trm/start.sh 2> /dev/null
-	fi
-
-        if [ "$wallet" ]; then
-        sed -i "/wal/c\-ewal $wallet"  $DIR/pho/config.txt
-        sed -i "/ewal/c\-ewal $wallet"  $DIR/clay/config.txt
-        sed -i "/wallet=/c\wallet=$wallet"  $DIR/trm/start.sh 2> /dev/null
-        fi
-
-        if [ "$coin" ]; then
-        sed -i "/coin/c\-coin $coin"  $DIR/pho/config.txt
-        sed -i "/allcoins/c\-allcoins $coin"  $DIR/clay/config.txt
-        fi
+#	if [ "$pool" ]; then
+#	sed -i "/pool/c\-epool $pool"  $DIR/pho/config.txt 2> /dev/null
+#	sed -i "/epool/c\-epool $pool"  $DIR/clay/config.txt 2> /dev/null
+#        sed -i "/pool=/c\pool=$pool"  $DIR/trm/start.sh 2> /dev/null
+#	fi
+#
+#        if [ "$wallet" ]; then
+#        sed -i "/wal/c\-ewal $wallet"  $DIR/pho/config.txt 2> /dev/nul
+#        sed -i "/ewal/c\-ewal $wallet"  $DIR/clay/config.txt 2> /dev/nul
+#        sed -i "/wallet=/c\wallet=$wallet"  $DIR/trm/start.sh 2> /dev/null
+#        fi
+#
+#        if [ "$coin" ]; then
+#        sed -i "/coin/c\-coin $coin"  $DIR/pho/config.txt 2> /dev/nul
+#        sed -i "/allcoins/c\-allcoins $coin"  $DIR/clay/config.txt 2> /dev/nul
+#        fi
+else
+printf "Missing rig_wallet file!\n"
 
 fi
 
@@ -97,6 +99,9 @@ source $DIR/rig_algo-miner
 
    if [ "$miner" = "pho" ]; then
    cd $DIR/pho
+        sed -i "/pool/c\-epool $pool"  $DIR/pho/config.txt
+        sed -i "/wal/c\-ewal $wallet"  $DIR/pho/config.txt
+        sed -i "/coin/c\-coin $coin"  $DIR/pho/config.txt
 
 	screen -ls "fanmgmt" | (
 	  IFS=$(printf '\t');
@@ -116,14 +121,30 @@ source $DIR/rig_algo-miner
 	printf "ETH miner started: Phoenix\n"
    fi
 
-   if [ "$miner" = "trm" ]; then
+   if [ "$miner" = "trm" ] && [ "$algo" = "eth" ]; then
 	cd $DIR/trm
+        sed -i "/pool=/c\pool=$pool"  $DIR/trm/start.sh 2> /dev/null
+        sed -i "/wallet=/c\wallet=$wallet"  $DIR/trm/start.sh 2> /dev/null
+
         screen -dmS ethm -L -Logfile /dev/tty1 ./start.sh
         printf "ETH miner started: TeamRedMiner\n"
    fi
 
+   if [ "$miner" = "trm" ] && [ "$algo" = "kawpow" ]; then
+	cd $DIR/trm
+        sed -i "/pool=/c\pool=$pool"  $DIR/trm/start_kaw.sh 2> /dev/null
+        sed -i "/wallet=/c\wallet=$wallet"  $DIR/trm/start_kaw.sh 2> /dev/null
+
+        screen -dmS ethm -L -Logfile /dev/tty1 ./start_kaw.sh
+        printf "Raven miner started: TeamRedMiner\n"
+   fi
+
    if [ "$algo" = "xmr" ]; then
         cd $DIR/clay_xmr
+        sed -i "/epool/c\-epool $pool"  $DIR/clay/config.txt 2> /dev/null
+        sed -i "/ewal/c\-ewal $wallet"  $DIR/clay/config.txt 2> /dev/nul
+        sed -i "/allcoins/c\-allcoins $coin"  $DIR/clay/config.txt 2> /dev/nul
+
         screen -dmS xmrm ./start.sh
         printf "XMR miner started: Claymore\n"
    elif [ "$miner" = "clay" ] && [ "$algo" = "eth" ]; then
