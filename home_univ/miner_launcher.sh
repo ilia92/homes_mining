@@ -66,8 +66,7 @@ sleep 2
 # END Stop each card
 fi
 
-pkill -9 start.sh && sleep 10
-
+kill -9 $(ps aux | grep -e start.*.sh | awk '{ print $2 }') 2>/dev/null && sleep 10
 if [ -e $DIR/rig_wallet ]; then
 
 source $DIR/rig_wallet
