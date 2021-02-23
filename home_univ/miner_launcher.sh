@@ -8,8 +8,8 @@ DIR="$( cd "$( dirname "${BASH_SOURCE[0]}" )" && pwd )"
 
 # Changing worker name
 worker=`hostname`
-sed -i "/worker/c\-worker $worker"  $DIR/pho/config.txt
-sed -i "/eworker/c\-eworker $worker"  $DIR/clay/config.txt
+sed -i "/worker/c\-worker $worker"  $DIR/pho/config.txt 2> /dev/null
+sed -i "/eworker/c\-eworker $worker"  $DIR/clay/config.txt 2> /dev/null
 
 if [[ $(ps aux | grep "SCREEN -dmS ethm" | wc -l) -gt 1 ]]; then
 # Stop each card
