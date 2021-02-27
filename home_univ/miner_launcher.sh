@@ -138,6 +138,20 @@ source $DIR/rig_algo-miner
         printf "Raven miner started: TeamRedMiner\n"
    fi
 
+   if [ "$miner" = "srbm" ] && [ "$algo" = "ergo" ]; then
+        cd $DIR/srbm
+        sed -i "/pool=/c\pool=$pool"  $DIR/srbm/start_ergo.sh 2> /dev/null
+        sed -i "/wallet=/c\wallet=$wallet"  $DIR/srbm/start_ergo.sh 2> /dev/null
+
+        screen -dmS ethm -L -Logfile /dev/tty1 ./start_ergo.sh
+        printf "SRBMiner miner started: ergo\n"
+        tt=`cat $DIR/setup_*/config_*txt | grep "tt=" | grep -o "..$"`
+        if ! [[ "$tt" ]]; then
+        tt=57
+        fi
+        screen -dmS fanmgmt $DIR/setup_rx/fanmgmt_rx.sh $tt
+   fi
+
    if [ "$algo" = "xmr" ]; then
         cd $DIR/clay_xmr
         sed -i "/epool/c\-epool $pool"  $DIR/clay/config.txt 2> /dev/null
